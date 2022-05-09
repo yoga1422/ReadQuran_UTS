@@ -14,7 +14,7 @@
     <div v-for="(ayat, index) in arrayAyat" :key="index" class="card">
       <div class="card-body text-end">
         <h5 class="card-title ayat d-inline text-center">( {{ index + 1 }} )</h5>
-        <h5 class="card-title nomorAyat d-inline display-5 align-center">{{ ayat.text_uthmani }}</h5>
+        <h5 class="card-title nomorAyat d-inline display-5 align-center">{{ ayat.text_imlaei }}</h5>
         <br />
         <div class="mt-3">
           <p class="card-text mt-3 d-inline"><strong> Artinya : </strong></p>
@@ -61,7 +61,7 @@ export default {
     },
     getAyat() {
       axios
-        .get(`https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=${this.$route.params.id}`)
+        .get(`https://api.quran.com/api/v4/quran/verses/imlaei?chapter_number=${this.$route.params.id}`)
         .then((response) => {
           this.arrayAyat = response.data.verses;
         })

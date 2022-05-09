@@ -2,8 +2,8 @@
   <main>
     <div class="jumbotron jumbotron-fluid">
       <div class="container text-center">
-        <h1 class="mt-5 display-4 fw-bolder">Read Quran</h1>
-        <p class="lead">Baca Al-Quran kapan pun dimana pun</p>
+        <h1 class="mt-5 display-4 fw-bolder">Imlaei Mushaf</h1>
+        <p class="lead">Baca Al-Quran dengan berbagai macam mushaf</p>
       </div>
     </div>
     <div class="content-surah ms-5">
@@ -16,7 +16,7 @@
                   <div class="media-body m-auto text-center">
                     <h5 class="card-title">{{ chapter.name_simple }}</h5>
                     <p class="card-text">{{ chapter.translated_name.name }}</p>
-                    <router-link :to="{ name: 'read', params: { id: chapter.id } }" class="btn btn-outline-dark text-black">Read </router-link>
+                    <router-link :to="{ name: 'imlaei', params: { id: chapter.id } }" class="btn btn-outline-dark text-black">Read </router-link>
                   </div>
                 </div>
               </div>

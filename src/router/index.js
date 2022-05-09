@@ -22,6 +22,36 @@ const router = createRouter({
       name: "read",
       component: () => import("../views/MushafView.vue"),
     },
+    {
+      path: "/mushaf/:id",
+      name: "mushaf",
+      component: () => import("../views/MushafLainView.vue"),
+    },
+    {
+      path: "/versi1",
+      name: "versi1",
+      component: () => import("../views/VersiLainView.vue"),
+    },
+    {
+      path: "/simple/:id",
+      name: "simple",
+      component: () => import("../views/MushafSimpleView.vue"),
+    },
+    {
+      path: "/versisimple",
+      name: "versisimple",
+      component: () => import("../views/UthmaniSimpleView.vue"),
+    },
+    {
+      path: "/imlaei/:id",
+      name: "imlaei",
+      component: () => import("../views/MushafImlaeiView.vue"),
+    },
+    {
+      path: "/versiImlaei",
+      name: "versiImlaei",
+      component: () => import("../views/ImlaeiView.vue"),
+    },
   ],
 });
 

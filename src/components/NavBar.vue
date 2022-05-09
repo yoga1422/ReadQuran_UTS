@@ -12,8 +12,21 @@
           <li class="nav-item">
             <Router-link class="nav-link text-white active" aria-current="page" to="/randomayat"><div class="txt">Random Ayat</div></Router-link>
           </li>
-          <li class="nav-item">
-            <Router-link class="nav-link text-white active" aria-current="page"  to="/mushaf"><div class="txt">Mushaf</div></Router-link>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Mushaf Lainnya
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <router-link class="dropdown-item" to="/versi1"><div class="txt">Indopak</div></router-link>
+              </li>
+              <li>
+                <router-link class="dropdown-item" to="/versisimple"><div class="txt">Uthmani Simple</div></router-link>
+              </li>
+              <li>
+                <router-link class="dropdown-item" to="/versiImlaei"><div class="txt">Imlaei</div></router-link>
+              </li>
+            </ul>
           </li>
 
         <div class="dropdown">

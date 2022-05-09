@@ -1,5 +1,36 @@
+<template>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <h1 class="title text-capitalize text-center">
+        <strong>Random Ayat</strong>
+      </h1>
+      <a class="link text-capitalize text-center"  href="https://api.quran.com/">GET FROM APIQURAN.COM</a>
+    </div>
+  </section>
+  <section class="content">
+    <div>
+
+      <h2 v-if="chapter" class="text-end">{{chapter.name_arabic}} {{verse.verse_number}}</h2>
+      <h2 v-if="chapter" class="text-start">{{chapter.name_simple}} {{verse.verse_number}}</h2>
+      <p v-if="audio" class="has-text-right">
+        <audio controls>
+          <source :src=audio type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </p>
+      <h3 v-if="quran" class="text-end quran">{{quran.text_uthmani}}</h3>
+      <h4 class="text text-capitalize text-black"> <strong>Artinya :</strong></h4>
+      <p v-if="translation">{{translation.text}}</p>
+    </div>
+    <div class="has-text-centered" v-if="isLoading">
+      <i class="fa-solid fa-spinner fa-pulse"></i>
+    </div>
+  </section>
+</template>
+
 <script>
 export default {
+  name: "RandomView",
   data() {
     return {
       isLoading: false,
@@ -7,9 +38,9 @@ export default {
       quran: null,
       chapter: null,
       translation: null,
-      tafsir: "",
+      tafsir: null,
       audio: null,
-    };
+    }
   },
   methods:{
     async getRandomAyat(){
@@ -35,32 +66,37 @@ export default {
           this.getTranslate(verseKey);
         })
     },
-    getAudioPath(path) {
-      return "https://verses.quran.com/" + path;
+    async getQuran(verseKey){
+      this.fetchQuran('quran/verses/uthmani?verse_key='+verseKey)
+        .then(res => {
+          this.quran = res.verses[0]
+        })
     },
-    async getChapter(id) {
-      this.fetchQuran("chapters/" + id + "?language=id").then((res) => {
-        this.chapter = res.chapter;
-      });
+    getAudioPath(path){
+      return 'https://verses.quran.com/'+path;
     },
-    async getTranslate(verseKey) {
-      this.fetchQuran("quran/translations/33?verse_key=" + verseKey).then(
-        (res) => {
-          this.translation = res.translations[0];
-        }
-      );
+    async getChapter(id){
+      this.fetchQuran('chapters/'+id+'?language=id')
+        .then(res => {
+          this.chapter = res.chapter
+        })
     },
-    async getTafsir() {},
-    async fetchQuran(path) {
+    async getTranslate(verseKey){
+      this.fetchQuran('quran/translations/33?verse_key='+verseKey)
+        .then(res => {
+          this.translation = res.translations[0]
+        })
+    },
+    async fetchQuran(path){
       this.isLoading = true;
-      const url = "https://api.quran.com/api/v4/" + path;
+      const url = "https://api.quran.com/api/v4/"+path;
       return fetch(url, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       })
-        .then((res) => {
+        .then(res => {
           if (!res.ok) {
             const error = new Error(res.statusText);
             error.json = res.json();
@@ -68,49 +104,26 @@ export default {
           }
           return res.json();
         })
-        .catch((err) => {
-          alert(err.toString());
+        .catch(err => {
+          alert(err.toString())
         })
         .finally(() => {
-          this.isLoading = false;
-        });
-    },
+          this.isLoading = false
+        })
+    }
   },
   mounted() {
-    this.getRandomAyat();
-    this.getQuran();
-    this.getTafsir();
-    this.getAudioPath();
-    this.getTranslate();
-  },
-};
+    this.getRandomAyat()
+  }
+}
 </script>
 
-<template>
-  <section class="hero is-small">
-    <div class="hero-body">
-      <p class="title">Random Ayat</p>
-      <p class="subtitle">Random Ayat from https://api.quran.com/</p>
-    </div>
-  </section>
-  <section class="content">
-    <div>
-      <h2 v-if="chapter" class="has-text-right">
-        {{ chapter.name_arabic }} {{ verse.verse_number }}
-      </h2>
-      <p v-if="audio" class="has-text-right">
-        <audio controls>
-          <source :src="audio" type="audio/mpeg" />
-          Your browser does not support the audio element.
-        </audio>
-      </p>
-      <h3 v-if="quran" class="has-text-right quran">
-        {{ quran.text_uthmani }}
-      </h3>
-      <p v-if="translation">{{ translation.text }}</p>
-    </div>
-    <div class="has-text-centered" v-if="isLoading">
-      <i class="fa-solid fa-spinner fa-pulse"></i>
-    </div>
-  </section>
-</template>
+<style>
+.title{
+ color: #593B30;
+}
+.link{
+  align-items: center;
+  color: coral;
+}
+</style>

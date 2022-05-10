@@ -3,7 +3,7 @@
   <router-view />
 
   <!-- footer -->
-  <div class="footer text-light align-text-bottom text-center p-3 ">
+  <div class="footer text-light text-center fixed-bottom p-3 ">
     Made with Usaha dan Doa by
     <a class="text-light" href="https://github.com/yoga1422">Yoga Pangestu</a>
   </div>
